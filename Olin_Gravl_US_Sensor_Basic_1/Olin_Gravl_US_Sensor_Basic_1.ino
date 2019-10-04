@@ -1,3 +1,7 @@
+// Leon Santen
+// if doesnt connect to arduino:
+// sudo chmod a+rw /dev/ttyACM0 
+
 #include "Arduino.h"
 
 /*
@@ -19,7 +23,7 @@ void setup()
   pinMode(TRIGGER, OUTPUT);
   digitalWrite(TRIGGER, HIGH);
   pinMode(LED, OUTPUT);
-  Serial.begin(9600);
+  Serial1.begin(9600);
 }
 void loop()
 {
@@ -39,17 +43,17 @@ void loop()
   }
 
   for (int i=0; i < number_of_sensors; i++){
-    Serial.print("sensor ");
-    Serial.print(sensor_pins[i]);
-    Serial.print(": ");
-    Serial.print(sensor_data[i]);
-    Serial.print("mm");
-    Serial.print(" | ");
+    Serial1.print("sensor ");
+    Serial1.print(sensor_pins[i]);
+    Serial1.print(": ");
+    Serial1.print(sensor_data[i]);
+    Serial1.print("mm");
+    Serial1.print(" | ");
   }
 
-  Serial.println();
+  Serial1.println();
   
   digitalWrite(LED, LOW);
-  delay(100);
+  delay(100); // TODO: remove delay function
   digitalWrite(LED, HIGH);
 }
