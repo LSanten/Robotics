@@ -1,10 +1,11 @@
-#define HWSERIAL Serial2
+//#define HWSERIAL Serial2
 
 int led = 13;
+uint32_t FLAG_time; // millis() time when flag was raised for turning on/off FLAG led (13)
 
 void setup() {
   Serial.begin(9600);
-        HWSERIAL.begin(9600);
+  Serial2.begin(9600);
   pinMode(led, OUTPUT);
 }
 
@@ -20,14 +21,18 @@ void loop() {
                 HWSERIAL.println(incomingByte, DEC);
   }
 **/
-  if (HWSERIAL.available() > 0) {
+  if (Serial2.available() > 0) {
     incomingByte = Serial2.readString();
     digitalWrite(led, HIGH);
-    Serial.print("Serial2 received: ");
+    FLAG_time = millis();
+    //Serial.print("Serial2 received: ");
     Serial.print(incomingByte);
     //Serial.println(incomingByte, DEC);
     //            HWSERIAL.println("Serial2 received:");
     //            HWSERIAL.println(incomingByte);
   }
-  digitalWrite(led, LOW);
+     
+  
+  
+  
 }
