@@ -17,11 +17,11 @@
 
 
 
-uint32_t US_frequency = 15; //frequency: clicks per second
+uint32_t US_frequency = 8; //frequency: clicks per second
 uint32_t current_millis; 
 uint32_t task_millis = 0;
 uint32_t task_length = 1000/US_frequency;
-uint32_t serial_freq_time;
+uint32_t serial_freq_time = 0;
 
 float measured_serial_freq;
 
@@ -69,11 +69,11 @@ void loop()
         data_string.concat('}');
       }
     }
-    // Print sensor data like (in mm):
+    // Print sensor data (in mm) like:
     // {1581,2115,1551}
     Serial1.println(data_string);
     
-    measured_serial_freq = 1000/(millis() - serial_freq_time); // calc frequency with current time and time from last loop (serial_freq_time)
+    measured_serial_freq = 1000.0/(float(millis() - serial_freq_time)); // calc frequency with current time and time from last loop (serial_freq_time)
     serial_freq_time = millis(); // take current time for next freq measurement
     
   }
