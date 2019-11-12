@@ -1,0 +1,8 @@
+prefix=/home/gravl/leon_repo/test_ws/devel
+
+Name: bucket
+Description: Description of bucket
+Version: 0.0.0
+Cflags: -I/home/gravl/leon_repo/test_ws/devel/include
+Libs: -L/home/gravl/leon_repo/test_ws/devel/lib 
+Requires: message_runtime
