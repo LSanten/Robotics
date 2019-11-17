@@ -15,8 +15,6 @@
 #define  TRIGGER   2
 #define  LED       13
 
-
-
 uint32_t US_frequency = 8; //frequency: clicks per second
 uint32_t current_millis; 
 uint32_t task_millis = 0;
@@ -26,7 +24,7 @@ uint32_t serial_freq_time = 0;
 float measured_serial_freq;
 
 int number_of_sensors = 3; //the amount of ultrasonic sensors used
-int sensor_pins[] = {15, 16, 18}; // input pins for sensor data - pin number refers to sensor from left to right in direction of traffic
+int sensor_pins[] = {33,34,35}; // input pins for sensor data - pin number refers to sensor from left to right in direction of traffic
 unsigned int flag_value = 500; // in millimeters - refers to lower limit of sensor data (everything lower will flag)
 //size_t data_size; // size of data array in bytes
 
@@ -36,6 +34,10 @@ void setup()
   digitalWrite(TRIGGER, HIGH);
   pinMode(LED, OUTPUT);
   Serial1.begin(9600);
+
+  digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
 void loop()
 {
@@ -43,6 +45,7 @@ void loop()
 
   // send trigger and run code in if statement with frequency --> US_frequency
   if (current_millis - task_millis >= task_length){
+    digitalWrite(LED, HIGH);
     task_millis = millis();
     // generate the pulse to trigger the sensor
     digitalWrite(TRIGGER, LOW);
@@ -71,10 +74,10 @@ void loop()
     }
     // Print sensor data (in mm) like:
     // {1581,2115,1551}
-    Serial1.println(data_string);
+    Serial1.print(data_string);
     
     measured_serial_freq = 1000.0/(float(millis() - serial_freq_time)); // calc frequency with current time and time from last loop (serial_freq_time)
-    serial_freq_time = millis(); // take current time for next freq measurement
-    
+    serial_freq_time = millis(); // take current time for next freq measurement    
   }
+ digitalWrite(LED, LOW);
 }
